@@ -19,7 +19,7 @@
               data-toggle="collapse"
               :to="{ name: 'test' }"
             >
-              Home
+              Test
             </router-link>
           </li>
 
