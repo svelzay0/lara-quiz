@@ -17,9 +17,9 @@
             <router-link
               class="nav-link"
               data-toggle="collapse"
-              :to="{ name: 'test' }"
+              :to="{ name: 'quiz' }"
             >
-              Test
+              Quiz
             </router-link>
           </li>
 
@@ -37,7 +37,8 @@
     </nav>
 
     <div class="container">
-      <router-view></router-view>
+      <router-view>
+      </router-view>
     </div>
   </div>
 </template>

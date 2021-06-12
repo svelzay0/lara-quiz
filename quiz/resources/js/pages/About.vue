@@ -5,7 +5,11 @@
         <div class="card">
           <div class="card-header">About</div>
 
-          <div class="card-body">About Page</div>
+            <div class="card-body">
+                <b>Pavel K.</b>
+                <br>
+                https://github.com/svelzay0
+            </div>
         </div>
       </div>
     </div>
@@ -14,6 +18,6 @@
 
 <script>
 export default {
-    
+
 }
 </script>

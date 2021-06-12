@@ -21,9 +21,17 @@ class QuizResultService
         $this->answers = $answers;
     }
 
+    // public function getQuestions()
+    // {
+    //     return '123';
+    //     // dd($this->answers);
+    //     // your code here
+    // }
+
     public function getResult(): float
     {
-        return 0.5;
+        // return 123.35;
+        // dd($this->answers);
         // your code here
     }
 }
