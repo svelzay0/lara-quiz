@@ -4,6 +4,9 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">Quiz</div>
+          <div class="card-body" v-if="!quiz">
+            Загрузка...
+          </div>
           <div class="card-body" v-if="quiz">
               <button v-if="quizNotStarted" v-on:click="testInProgress()">Начать тест</button>
               <button v-else v-on:click="stopProgress()">Прервать тест</button>
@@ -32,6 +35,9 @@
                         <button v-on:click="next">Далее</button>
                     </div>
                 </div>
+            </div>
+            <div class="card-body" v-if="!mark && questionIndex > 4">
+              Загрузка...
             </div>
             <div v-if="mark != null && mark > -0.1">
                 <h4>

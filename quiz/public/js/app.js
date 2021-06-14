@@ -2039,6 +2039,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -38334,6 +38340,12 @@ var render = function() {
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [_vm._v("Quiz")]),
           _vm._v(" "),
+          !_vm.quiz
+            ? _c("div", { staticClass: "card-body" }, [
+                _vm._v("\n          Загрузка...\n        ")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _vm.quiz
             ? _c("div", { staticClass: "card-body" }, [
                 _vm.quizNotStarted
@@ -38466,6 +38478,12 @@ var render = function() {
                     )
                   ])
                 }),
+                _vm._v(" "),
+                !_vm.mark && _vm.questionIndex > 4
+                  ? _c("div", { staticClass: "card-body" }, [
+                      _vm._v("\n            Загрузка...\n          ")
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _vm.mark != null && _vm.mark > -0.1
                   ? _c("div", [
