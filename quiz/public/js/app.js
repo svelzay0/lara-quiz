@@ -1996,48 +1996,95 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      search: '',
-      types: [{
-        text: 'Физическое лицо',
-        value: 'Физическое лицо'
-      }, {
-        text: 'Юридическое лицо',
-        value: 'Юридическое лицо'
-      }],
-      // defaultFilters: {
-      //   type: null,
-      //   dont_call_for_review: null,
-      //   company_name: null,
-      //   contact_person: null,
-      //   position: null,
-      //   created_at_from: null,
-      //   blacklist: '0'
-      // },
-      filters: {
-        type: null,
-        dont_call_for_review: null,
-        company_name: null,
-        contact_person: null,
-        position: null,
-        created_at_from: null,
-        blacklist: '0'
-      },
-      url: '/api/manager_customers',
-      showForm: false,
-      readonly: false,
-      model: null,
-      formKey: 1 // form: new Form({})
-
+      quizNotStarted: true,
+      quiz: null,
+      questionIndex: 0,
+      results: [],
+      mark: null
     };
   },
   created: function created() {
-    _services_QuizDataService__WEBPACK_IMPORTED_MODULE_0__.default.getQuestions(); // .then(data => this.init(data))
+    var _this = this;
+
+    _services_QuizDataService__WEBPACK_IMPORTED_MODULE_0__.default.getQuiz().then(function (data) {
+      return _this.init(data);
+    });
   },
-  methods: {}
+  methods: {
+    init: function init(data) {
+      this.quiz = data[0];
+    },
+    testInProgress: function testInProgress() {
+      this.quizNotStarted = false;
+    },
+    stopProgress: function stopProgress() {
+      this.quizNotStarted = true;
+      this.questionIndex = 0, this.results = [], this.mark = null;
+    },
+    next: function next() {
+      var _this2 = this;
+
+      this.questionIndex++;
+      console.log(this.results);
+
+      if (this.questionIndex > 4) {
+        _services_QuizDataService__WEBPACK_IMPORTED_MODULE_0__.default.getResults(this.results).then(function (data) {
+          _this2.mark = data;
+          console.log(_this2.mark);
+        });
+      }
+    },
+    prev: function prev() {
+      this.questionIndex--;
+    }
+  }
 });
 
 /***/ }),
@@ -2332,45 +2379,51 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var ManagerCustomerDataService = /*#__PURE__*/function (_DataService) {
-  _inherits(ManagerCustomerDataService, _DataService);
+var QuizDataService = /*#__PURE__*/function (_DataService) {
+  _inherits(QuizDataService, _DataService);
 
-  var _super = _createSuper(ManagerCustomerDataService);
+  var _super = _createSuper(QuizDataService);
 
-  function ManagerCustomerDataService() {
+  function QuizDataService() {
     var _this;
 
-    _classCallCheck(this, ManagerCustomerDataService);
+    _classCallCheck(this, QuizDataService);
 
     _this = _super.call(this, {
       name: 'quiz'
-    }); // this.getUrl.createContactPerson = () => `${API_URL}/quiz/create_contact_person`
+    });
 
-    _this.getUrl.getQuestions = function () {
-      return "".concat(_api_url__WEBPACK_IMPORTED_MODULE_1__.API_URL, "/quiz/get_questions");
+    _this.getUrl.getQuiz = function () {
+      return "".concat(_api_url__WEBPACK_IMPORTED_MODULE_1__.API_URL, "/quiz/get_quiz");
+    };
+
+    _this.getUrl.getResults = function () {
+      return "".concat(_api_url__WEBPACK_IMPORTED_MODULE_1__.API_URL, "/quiz/get_results");
     };
 
     return _this;
-  } //   updateContactPerson (id, data) {
-  //     return axios
-  //       .post(this.getUrl.updateContactPerson(id), data)
-  //       .then(response => response.data)
-  //   }
+  }
 
-
-  _createClass(ManagerCustomerDataService, [{
-    key: "getQuestions",
-    value: function getQuestions() {
-      return axios__WEBPACK_IMPORTED_MODULE_2___default().get(this.getUrl.getQuestions()).then(function (response) {
+  _createClass(QuizDataService, [{
+    key: "getResults",
+    value: function getResults(data) {
+      return axios__WEBPACK_IMPORTED_MODULE_2___default().post(this.getUrl.getResults(), data).then(function (response) {
+        return response.data;
+      });
+    }
+  }, {
+    key: "getQuiz",
+    value: function getQuiz() {
+      return axios__WEBPACK_IMPORTED_MODULE_2___default().get(this.getUrl.getQuiz()).then(function (response) {
         return response.data;
       });
     }
   }]);
 
-  return ManagerCustomerDataService;
+  return QuizDataService;
 }(_DataService__WEBPACK_IMPORTED_MODULE_0__.default);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new ManagerCustomerDataService());
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new QuizDataService());
 
 /***/ }),
 
@@ -38133,7 +38186,7 @@ var render = function() {
       [
         _c(
           "router-link",
-          { staticClass: "navbar-brand", attrs: { to: { name: "test" } } },
+          { staticClass: "navbar-brand", attrs: { to: { name: "quiz" } } },
           [_vm._v("Laravel-Vue Quiz")]
         ),
         _vm._v(" "),
@@ -38275,28 +38328,187 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container mt-5" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Quiz")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v("\n            Test Page\n        ")
-            ])
-          ])
-        ])
+  return _c("div", { staticClass: "container mt-5" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Quiz")]),
+          _vm._v(" "),
+          _vm.quiz
+            ? _c("div", { staticClass: "card-body" }, [
+                _vm.quizNotStarted
+                  ? _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.testInProgress()
+                          }
+                        }
+                      },
+                      [_vm._v("Начать тест")]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.stopProgress()
+                          }
+                        }
+                      },
+                      [_vm._v("Прервать тест")]
+                    )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm.quizNotStarted != true
+          ? _c(
+              "div",
+              [
+                _vm._l(_vm.quiz.questions, function(question, index) {
+                  return _c("div", { staticClass: "card" }, [
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: index === _vm.questionIndex,
+                            expression: "index === questionIndex"
+                          }
+                        ]
+                      },
+                      [
+                        _c("div", { staticClass: "card-header" }, [
+                          _c("i", [
+                            _vm._v(
+                              "Вопрос " +
+                                _vm._s(question.uuid.slice(-1)) +
+                                "/5:"
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("b", [_vm._v(_vm._s(question.text))])
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(question.choices, function(choice) {
+                          return _c("div", { staticClass: "card-body" }, [
+                            _c("div", [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.results,
+                                    expression: "results"
+                                  }
+                                ],
+                                attrs: { type: "checkbox", id: choice.uuid },
+                                domProps: {
+                                  value: choice.uuid,
+                                  checked: Array.isArray(_vm.results)
+                                    ? _vm._i(_vm.results, choice.uuid) > -1
+                                    : _vm.results
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.results,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = choice.uuid,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          (_vm.results = $$a.concat([$$v]))
+                                      } else {
+                                        $$i > -1 &&
+                                          (_vm.results = $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1)))
+                                      }
+                                    } else {
+                                      _vm.results = $$c
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("label", { attrs: { for: choice.uuid } }, [
+                                _vm._v(_vm._s(choice.text))
+                              ]),
+                              _vm._v(" "),
+                              _c("br")
+                            ])
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-body" }, [
+                          _vm.questionIndex > 0
+                            ? _c("button", { on: { click: _vm.prev } }, [
+                                _vm._v("Предыдущий вопрос")
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("button", { on: { click: _vm.next } }, [
+                            _vm._v("Далее")
+                          ])
+                        ])
+                      ],
+                      2
+                    )
+                  ])
+                }),
+                _vm._v(" "),
+                _vm.mark != null && _vm.mark > -0.1
+                  ? _c("div", [
+                      _c("h4", [
+                        _vm._v(
+                          "\n                  Тест завершен.\n              "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                  Ваша оценка: " +
+                            _vm._s(_vm.mark) +
+                            "/1\n              "
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.mark < 0
+                  ? _c("div", [
+                      _c("h4", [
+                        _vm._v(
+                          "\n                  Тест завершен.\n              "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n                  Вами было выбрано слишком много не правильных пунктов. Пройдите тест заного.\n              "
+                        )
+                      ])
+                    ])
+                  : _vm._e()
+              ],
+              2
+            )
+          : _vm._e()
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

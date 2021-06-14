@@ -6,12 +6,13 @@ use App\DTO\QuestionDTO;
 
 final class QuizDTO
 {
-    private string $uuid;
-    private string $title;
-    private array $questions = [];
+    public string $uuid;
+    public string $title;
+    public array $questions = [];
 
     public function __construct(string $uuid, string $title)
     {
+
         $this->uuid = $uuid;
         $this->title = $title;
     }
@@ -29,7 +30,7 @@ final class QuizDTO
     public function addQuestion(QuestionDTO $question): self
     {
         $this->questions[] = $question;
-        
+
         return $this;
     }
 

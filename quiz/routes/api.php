@@ -20,6 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get('quiz/get_questions', [QuizResultService::class, 'getQuestions']);
-Route::get('quiz/get_questions', [QuizController::class, 'getQuestions']);
-// Route::get('manager_customers/contact_persons', [ManagerCustomerController::class, 'showContactPersons']);
+Route::get('quiz/get_quiz', [QuizController::class, 'getQuiz']);
+Route::post('quiz/get_results', [QuizController::class, 'getResults']);

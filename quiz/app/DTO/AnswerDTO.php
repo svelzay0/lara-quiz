@@ -4,8 +4,8 @@ namespace App\DTO;
 
 final class AnswerDTO
 {
-    private string $questionUUID;
-    private array $choices = [];
+    public string $questionUUID;
+    public array $choices = [];
 
     public function __construct(string $questionUUID)
     {

@@ -6,8 +6,8 @@ use App\DTO\AnswerDTO;
 
 final class AnswersDTO
 {
-    private string $quizUUID;
-    private array $answers = [];
+    public string $quizUUID;
+    public array $answers = [];
 
     public function __construct(string $quizUUID)
     {

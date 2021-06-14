@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-      <router-link :to="{ name: 'test' }" class="navbar-brand"
+      <router-link :to="{ name: 'quiz' }" class="navbar-brand"
         >Laravel-Vue Quiz</router-link
       >
       <button

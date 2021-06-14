@@ -4,12 +4,12 @@ namespace App\DTO;
 
 final class ChoiceDTO
 {
-    private string $uuid;
-    private string $text;
-    private bool $isCorrect;
+    public string $uuid;
+    public string $text;
+    public bool $isCorrect;
 
     public function __construct(
-        string $uuid, 
+        string $uuid,
         string $text,
         bool $isCorrect
     ) {

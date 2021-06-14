@@ -6,9 +6,9 @@ use App\DTO\ChoiceDTO;
 
 final class QuestionDTO
 {
-    private string $uuid;
-    private string $text;
-    private array $choices = [];
+    public string $uuid;
+    public string $text;
+    public array $choices = [];
 
     public function __construct(string $uuid, string $text)
     {
@@ -29,7 +29,7 @@ final class QuestionDTO
     public function addChoice(ChoiceDTO $choice): self
     {
         $this->choices[] = $choice;
-        
+
         return $this;
     }
 
